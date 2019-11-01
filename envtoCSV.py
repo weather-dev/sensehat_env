@@ -23,7 +23,7 @@ complete_url_current_main = "http://api.openweathermap.org/data/2.5/weather?appi
     api_key+"&q="+city_name_main+"&units=metric"
 
 fieldname = ["Unix","Date", "Time", "Temp from humidity",
-             "Temp from pressure", "Average temp", "Pressure", "Humidity"]
+             "Temp from pressure", "Average temp", "Pressure", "Humidity", "Outside Temp"]
 
 f_name = "CSVfile_" + str(datetime.date.today()) + ".csv"
 
@@ -40,10 +40,14 @@ def write_headers(names):
         thewriter.writeheader()
 
     while True:
-        env_read(fieldname, delay, theLED)
+        env_read(fieldname, delay, theLED, complete_url_current_main)
 
 
-def env_read(names, t, de):
+def env_read(names, t, de, url):
+    response = requests.get(url)
+    x = response.json()
+    y = x["main"]
+    current_temp = y["temp"]
     temph = sense.get_temperature_from_humidity()
     tempp = sense.get_temperature_from_pressure()
     tempa = (temph+tempp)/2
@@ -55,7 +59,7 @@ def env_read(names, t, de):
     with open(f_name, "a") as f:
         thewriter = csv.DictWriter(f, fieldnames=names)
         thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temp from humidity": temph,
-                            "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum})
+                            "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum, "Outside Temp": current_temp})
     sense.set_pixel(3, 3, 255, 100, 100)
     time.sleep(de)
     sense.clear()
@@ -67,7 +71,7 @@ def ch(theFile):
         theNames = next(theReader)
     if theNames == fieldname:
         while True:
-            env_read(fieldname, delay, theLED)
+            env_read(fieldname, delay, theLED, complete_url_current_main)
     else:
         write_headers(fieldname)
 
