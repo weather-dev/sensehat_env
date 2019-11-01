@@ -4,6 +4,8 @@ import csv
 from sense_hat import SenseHat
 import os
 import csv
+import requests
+import json
 
 # Configuration
 
@@ -13,6 +15,12 @@ theLED = 30  # The time of LED lighting during the measurement (in seconds)
 
 global delay
 delay = theDelay - theLED
+
+# setting the url for the open weather map (OWM)
+api_key = "855113852123abb0b21fe60d51014cea"
+city_name_main = 'London'
+complete_url_current_main = "http://api.openweathermap.org/data/2.5/weather?appid=" + \
+    api_key+"&q="+city_name_main+"&units=metric"
 
 fieldname = ["Unix","Date", "Time", "Temp from humidity",
              "Temp from pressure", "Average temp", "Pressure", "Humidity"]
