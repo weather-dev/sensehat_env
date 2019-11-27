@@ -124,6 +124,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+secrets.json
 BackUps_WebsiteProject/
 .vs/
 Dev/
@@ -141,4 +142,3 @@ trial123.py
 share.csv
 Trial.csv
 csvFiles/
-secrets.json
