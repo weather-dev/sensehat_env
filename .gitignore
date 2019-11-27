@@ -125,7 +125,7 @@ dmypy.json
 .pyre/
 
 BackUps_WebsiteProject/
-csvFiles/
+.vs/
 Dev/
 FA kit database/
 Trial/
