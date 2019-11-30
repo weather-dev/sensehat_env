@@ -19,7 +19,7 @@ f_name = "CSVfile_Out_" + str(datetime.date.today()) + ".csv"
 api_key= secret_data["OWM_Key"]
 url_complete = "http://api.openweathermap.org/data/2.5/weather?appid=" +api_key+"&q=London&units=metric"
 
-os.chdir("./csvFiles")
+os.chdir(secret_data["output_dir"])
 
 def write_headers(fieldnames):
     with open(f_name, "a") as f:
