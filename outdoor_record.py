@@ -8,17 +8,15 @@ import requests
 
 
 with open("secrets.json", "r") as secrets_file:
-    obj = json.load(secrets_file)
+    secret_data = json.load(secrets_file)
 
-logging.basicConfig(filename="testing.log", level=logging.DEBUG)
+logging.basicConfig(filename=secret_data["log_filename"], level=logging.DEBUG)
 
 fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Description"]
 
-delay = 300
-
 f_name = "CSVfile_Out_" + str(datetime.date.today()) + ".csv"
 
-api_key= obj["OWM_Key"]
+api_key= secret_data["OWM_Key"]
 url_complete = "http://api.openweathermap.org/data/2.5/weather?appid=" +api_key+"&q=London&units=metric"
 
 os.chdir("./csvFiles")
