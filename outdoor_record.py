@@ -29,7 +29,7 @@ def write_headers(fieldnames):
         logging.debug("Time: {}. Headers written.".format(time_now))
 
     while True:
-        env_read(fieldname, delay)
+        env_read(fieldname, secret_data["measurement_delay"])
 
 def env_read(names, time_delay):
     dt = time.time()
@@ -54,7 +54,7 @@ def file_check(theFile):
         theNames = next(theReader)
     if theNames == fieldname:
         while True:
-            env_read(fieldname, delay)
+            env_read(fieldname, secret_data["measurement_delay"])
     else:
         write_headers(fieldname)
 
