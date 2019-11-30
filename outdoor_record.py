@@ -13,8 +13,11 @@ fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Desc
 delay = 300
 
 f_name = "CSVfile_Out_" + str(datetime.date.today()) + ".csv"
+with open("secrets.json", "r") as secrets_file:
+    obj = json.load(secrets_file)
 
-api_key= "855113852123abb0b21fe60d51014cea"
+
+api_key= obj["OWM_Key"]
 url_complete = "http://api.openweathermap.org/data/2.5/weather?appid=" +api_key+"&q=London&units=metric"
 
 os.chdir(r"E:\Gits\csvFiles")      #"/share/csvFiles"
