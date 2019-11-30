@@ -6,6 +6,10 @@ import logging
 import json
 import requests
 
+
+with open("secrets.json", "r") as secrets_file:
+    obj = json.load(secrets_file)
+
 logging.basicConfig(filename="testing.log", level=logging.DEBUG)
 
 fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Description"]
@@ -13,14 +17,11 @@ fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Desc
 delay = 300
 
 f_name = "CSVfile_Out_" + str(datetime.date.today()) + ".csv"
-with open("secrets.json", "r") as secrets_file:
-    obj = json.load(secrets_file)
-
 
 api_key= obj["OWM_Key"]
 url_complete = "http://api.openweathermap.org/data/2.5/weather?appid=" +api_key+"&q=London&units=metric"
 
-os.chdir(r"E:\Gits\csvFiles")      #"/share/csvFiles"
+os.chdir("./csvFiles")
 
 def write_headers(fieldnames):
     with open(f_name, "a") as f:
@@ -49,7 +50,7 @@ def env_read(names, time_delay):
     logging.debug("Time: {}. Data written successfully.".format(ti))
     time.sleep(time_delay)
 
-def ch(theFile):
+def file_check(theFile):
     with open(theFile,"r") as f:
         theReader = csv.reader(f)
         theNames = next(theReader)
@@ -60,6 +61,6 @@ def ch(theFile):
         write_headers(fieldname)
 
 try:
-    ch(f_name)
+    file_check(f_name)
 except IOError:
     write_headers(fieldname)
