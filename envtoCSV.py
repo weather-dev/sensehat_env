@@ -4,8 +4,11 @@ import csv
 from sense_hat import SenseHat
 import os
 import csv
+import logging
 
 # Configuration
+
+logging.basicConfig(filename="testing.log", level=logging.DEBUG)
 
 global theLED
 theDelay = 300  # The delay between the measurement (in seconds)
@@ -48,6 +51,7 @@ def env_read(names, t, de):
         thewriter = csv.DictWriter(f, fieldnames=names)
         thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temp from humidity": temph,
                             "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum})
+    logging.debug("Time: {}. Data written successfully.".format(ti))
     sense.set_pixel(3, 3, 255, 100, 100)
     time.sleep(de)
     sense.clear()
