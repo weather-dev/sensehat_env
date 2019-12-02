@@ -143,3 +143,4 @@ share.csv
 Trial.csv
 csvFiles/
 .vscode/
+generator.py
