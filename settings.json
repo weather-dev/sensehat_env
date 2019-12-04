@@ -2,8 +2,8 @@
     "envtoCSV": {
         "log_filename": "envtoCSV_tests.log",
         "comment_1": "Measurement delay must be larger than LED delay",
-        "measurement_delay": 5,
-        "LED delay": 30,
+        "measurement_delay": 10,
+        "LED delay": 5,
         "output_dir": "./csvFiles"
     },
     "outdoor": {

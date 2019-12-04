@@ -5,15 +5,24 @@ from sense_hat import SenseHat
 import os
 import csv
 import logging
+import json
 
 # Configuration
 
-logging.basicConfig(filename="testing.log", level=logging.DEBUG)
+with open("settings.json", "r") as setting_file:
+    setting_data = json.load(setting_file)
+
+logging.basicConfig(filename=setting_data["envtoCSV"]["log_filename"], level=logging.DEBUG)
 
 global theLED
-theDelay = 300  # The delay between the measurement (in seconds)
-theLED = 30  # The time of LED lighting during the measurement (in seconds)
-
+theDelay = setting_data["envtoCSV"]["measurement_delay"]  # The delay between the measurement (in seconds)
+theLED = setting_data["envtoCSV"]["LED delay"] # The time of LED lighting during the measurement (in seconds)
+if theDelay >= theLED:
+    logging.debug("Settings.json settings will be used.")
+else:
+    theDelay = 300
+    theLED = 30
+    logging.warning("The settings for measurement delay and LED delay in settings.json are incorrect. Measurement delay used: {}. LED delay used: {}".format(theDelay, theLED))
 global delay
 delay = theDelay - theLED
 
@@ -22,7 +31,7 @@ fieldname = ["Unix","Date", "Time", "Temp from humidity",
 
 f_name = "CSVfile_" + str(datetime.date.today()) + ".csv"
 
-os.chdir("/share/csvFiles")  # The directory for saving the CSV files with data
+os.chdir(setting_data["envtoCSV"]["output_dir"])  # The directory for saving the CSV files with data
 
 # -------------------- End of Configurations -------------------------------
 
