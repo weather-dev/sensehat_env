@@ -124,7 +124,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-secrets.json
 BackUps_WebsiteProject/
 .vs/
 Dev/
@@ -143,3 +142,4 @@ share.csv
 Trial.csv
 csvFiles/
 .vscode/
+secret_setting.json
