@@ -1,17 +1,17 @@
 import pandas as pd
 
-def data_handle_pd():
-    f_name = "csvFiles/CSVfile_Gen_2019-12-02.csv"
-    df = pd.read_csv(f_name)
-    calc_df = df.tail(5)
-    temp_df = calc_df.loc[:,"Temperature"].mean()
-    return temp_df
-    
-print(data_handle_pd())
+file_name = r"csvFiles\CSVfile_Gen_2019-12-02.csv"
+def data_handle_pd(measure_num = 10, file_name = file_name, min_temp = 20, max_temp=27):
+    df = pd.read_csv(file_name)
+    calc_df = df.tail(int(measure_num))
+    temp_average = calc_df.loc[:,"Temperature"].mean()
+    print("Setting: {}, {}, {}, {}".format(measure_num,file_name,min_temp,max_temp))
+    if temp_average < min_temp:
+        print("It's cold here!")
+    elif temp_average > max_temp:
+        print("It's too hot here!")
+    else:
+        print("The temperature is just right.")
+    return temp_average
 
-if data_handle_pd() < 10:
-    print("Its cold here")
-elif data_handle_pd() > 11:
-    print("Its too warm here!")
-else:
-    print("The temperature is just right")
+print("The average temperature is: {}C.".format(data_handle_pd(file_name=file_name, measure_num=200, min_temp=15, max_temp=25)))
