@@ -5,7 +5,7 @@ import csv
 import logging
 import json
 import requests
-
+import math
 
 with open("secret.json", "r") as secrets_file:
     secret_data = json.load(secrets_file)
@@ -15,7 +15,7 @@ with open("settings.json", "r") as setting_file:
 
 logging.basicConfig(filename=setting_data["outdoor"]["log_filename"], level=logging.DEBUG)
 
-fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Description"]
+fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Abs Humidity", "Description"]
 
 f_name = "CSVfile_Out_" + str(datetime.date.today()) + ".csv"
 
@@ -34,6 +34,15 @@ def write_headers(fieldnames):
     while True:
         env_read(fieldname, setting_data["outdoor"]["measurement_delay"])
 
+def absolute_humidity(humidity, temperature):
+    power_e = (17.67*temperature)/(temperature+243.5)
+    e_powered = math.exp(power_e)
+    top_line = 6.112 * e_powered * humidity * 2.1674
+    bottom_line = 273.15 + temperature
+    absolute_hum = top_line/bottom_line
+    return absolute_hum
+
+
 def env_read(names, time_delay):
     dt = time.time()
     d = datetime.date.today()
@@ -44,10 +53,11 @@ def env_read(names, time_delay):
     pressure = owm_data["pressure"]
     humidity = owm_data["humidity"]
     description = owm_response["weather"][0]["description"]
-    logging.debug("Temp: {}. Pressure: {}. Humidity: {}. Description: {}".format(temperature, humidity,pressure,description))
+    absolute_hum = absolute_humidity(humidity, temperature)
+    logging.debug("Temp: {}. Pressure: {}. Humidity: {}. Description: {}, Absolute humidity: {}".format(temperature, humidity,pressure,description, absolute_hum))
     with open(f_name, "a") as f:
         thewriter = csv.DictWriter(f, fieldnames=names)
-        thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temperature":temperature, "Humidity": humidity, "Pressure":pressure, "Description":description})
+        thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temperature":temperature, "Humidity": humidity, "Pressure":pressure, "Description":description, "Abs Humidity":absolute_hum})
     logging.debug("Time: {}. Data written successfully.".format(ti))
     time.sleep(time_delay)
 

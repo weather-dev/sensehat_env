@@ -143,3 +143,4 @@ Trial.csv
 csvFiles/
 .vscode/
 secret_setting.json
+generator.py
