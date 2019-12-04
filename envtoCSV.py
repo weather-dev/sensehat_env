@@ -5,7 +5,7 @@ from sense_hat import SenseHat
 import os
 import csv
 import logging
-
+import math
 # Configuration
 
 logging.basicConfig(filename="testing.log", level=logging.DEBUG)
@@ -38,6 +38,14 @@ def write_headers(names):
         env_read(fieldname, delay, theLED)
 
 
+def absolute_humidity(humidity, temperature):
+    power_e = (17.67*temperature)/(temperature+243.5)
+    e_powered = math.exp(power_e)
+    top_line = 6.112 * e_powered * humidity * 2.1674
+    bottom_line = 273.15 + temperature
+    absolute_hum = top_line/bottom_line
+    return absolute_hum
+
 def env_read(names, t, de):
     temph = sense.get_temperature_from_humidity()
     tempp = sense.get_temperature_from_pressure()
@@ -47,10 +55,11 @@ def env_read(names, t, de):
     dt = time.time()
     d = datetime.date.today()
     ti = time.strftime("%H:%M:%S")
+    absolute_hum = absolute_humidity(hum, tempa)
     with open(f_name, "a") as f:
         thewriter = csv.DictWriter(f, fieldnames=names)
         thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temp from humidity": temph,
-                            "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum})
+                            "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum, "Absolute Humidity (g/m3)":absolute_hum})
     logging.debug("Time: {}. Data written successfully.".format(ti))
     sense.set_pixel(3, 3, 255, 100, 100)
     time.sleep(de)
