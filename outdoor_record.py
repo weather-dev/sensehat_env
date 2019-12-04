@@ -54,7 +54,7 @@ def env_read(names, time_delay):
     humidity = owm_data["humidity"]
     description = owm_response["weather"][0]["description"]
     absolute_hum = absolute_humidity(humidity, temperature)
-    logging.debug("Temp: {}. Pressure: {}. Humidity: {}. Description: {}, Absolute humidity: {}".format(temperature, humidity,pressure,description, absolute_hum))
+    logging.debug("Temp: {}. Pressure: {}. Humidity: {}. Description: {}, Absolute humidity: {}".format(temperature, pressure, humidity,description, absolute_hum))
     with open(f_name, "a") as f:
         thewriter = csv.DictWriter(f, fieldnames=names)
         thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temperature":temperature, "Humidity": humidity, "Pressure":pressure, "Description":description, "Abs Humidity":absolute_hum})
