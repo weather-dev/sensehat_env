@@ -7,10 +7,13 @@ import json
 import requests
 
 
-with open("secret_setting.json", "r") as secrets_file:
+with open("secret.json", "r") as secrets_file:
     secret_data = json.load(secrets_file)
 
-logging.basicConfig(filename=secret_data["outdoor"]["log_filename"], level=logging.DEBUG)
+with open("settings.json", "r") as setting_file:
+    setting_data = json.load(setting_file)
+
+logging.basicConfig(filename=setting_data["outdoor"]["log_filename"], level=logging.DEBUG)
 
 fieldname = ["Unix","Date", "Time", "Temperature", "Pressure", "Humidity", "Description"]
 
@@ -19,7 +22,7 @@ f_name = "CSVfile_Out_" + str(datetime.date.today()) + ".csv"
 api_key= secret_data["Secret"]["OWM_Key"]
 url_complete = "http://api.openweathermap.org/data/2.5/weather?appid=" +api_key+"&q=London&units=metric"
 
-os.chdir(secret_data["outdoor"]["output_dir"])
+os.chdir(setting_data["outdoor"]["output_dir"])
 
 def write_headers(fieldnames):
     with open(f_name, "a") as f:
@@ -29,7 +32,7 @@ def write_headers(fieldnames):
         logging.debug("Time: {}. Headers written.".format(time_now))
 
     while True:
-        env_read(fieldname, secret_data["outdoor"]["measurement_delay"])
+        env_read(fieldname, setting_data["outdoor"]["measurement_delay"])
 
 def env_read(names, time_delay):
     dt = time.time()
@@ -54,7 +57,7 @@ def file_check(theFile):
         theNames = next(theReader)
     if theNames == fieldname:
         while True:
-            env_read(fieldname, secret_data["outdoor"]["measurement_delay"])
+            env_read(fieldname, setting_data["outdoor"]["measurement_delay"])
     else:
         write_headers(fieldname)
 
