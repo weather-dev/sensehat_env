@@ -28,7 +28,7 @@ global delay
 delay = theDelay - theLED
 
 fieldname = ["Unix","Date", "Time", "Temp from humidity",
-             "Temp from pressure", "Average temp", "Pressure", "Humidity"]
+             "Temp from pressure", "Average temp", "Pressure", "Humidity", "Absolute Humidity (g/m3)"]
 
 f_name = "CSVfile_" + str(datetime.date.today()) + ".csv"
 
