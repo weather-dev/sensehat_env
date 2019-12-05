@@ -27,8 +27,11 @@ else:
 global delay
 delay = theDelay - theLED
 
+cold_water = {"C1": 6.10780, "C2": 17.84362, "C3": 245.425}
+water = {"C1": 6.10780, "C2": 17.08085, "C3": 234.175}
+
 fieldname = ["Unix","Date", "Time", "Temp from humidity",
-             "Temp from pressure", "Average temp", "Pressure", "Humidity", "Absolute Humidity (g/m3)"]
+             "Temp from pressure", "Average temp", "Pressure", "Humidity", "Absolute Humidity (g/m3)", "Dew Point"]
 
 f_name = "CSVfile_" + str(datetime.date.today()) + ".csv"
 
@@ -47,6 +50,14 @@ def write_headers(names):
     while True:
         env_read(fieldname, delay, theLED)
 
+def dew_point(humidity, temperature, C1, C2, C3):
+    relative_hum = humidity / 100
+    sat_water_pressure = C1 * math.exp((C2*temperature)/(C3+temperature))
+    partial_water_pressure = sat_water_pressure * relative_hum
+    top_line = math.log(partial_water_pressure/C1)*C3
+    bottom_line = math.log(partial_water_pressure/C1)-C2
+    dew_temperature = -top_line/bottom_line
+    return dew_temperature
 
 def absolute_humidity(humidity, temperature):
     power_e = (17.67*temperature)/(temperature+243.5)
@@ -66,10 +77,14 @@ def env_read(names, t, de):
     d = datetime.date.today()
     ti = time.strftime("%H:%M:%S")
     absolute_hum = absolute_humidity(hum, tempa)
+    if tempa < 0:
+        dew_temp = dew_point(hum, tempa, **cold_water)
+    else:
+        dew_temp = dew_point(hum, tempa, **water)
     with open(f_name, "a") as f:
         thewriter = csv.DictWriter(f, fieldnames=names)
         thewriter.writerow({"Unix":dt ,"Date": d, "Time": ti, "Temp from humidity": temph,
-                            "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum, "Absolute Humidity (g/m3)":absolute_hum})
+                            "Temp from pressure": tempp, "Average temp": tempa, "Pressure": pres, "Humidity": hum, "Absolute Humidity (g/m3)":absolute_hum, "Dew Point":dew_temp})
     logging.debug("Time: {}. Data written successfully.".format(ti))
     sense.set_pixel(3, 3, 255, 100, 100)
     time.sleep(de)
