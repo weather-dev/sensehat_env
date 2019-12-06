@@ -144,3 +144,4 @@ csvFiles/
 .vscode/
 secret_setting.json
 generator.py
+secrets_noupload.json

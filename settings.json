@@ -13,5 +13,8 @@
     },
     "Uploader":{
         "log_filename":"uploader.log"
+    },
+    "Emails":{
+        "log_filename":"emails.log"
     }
 }
