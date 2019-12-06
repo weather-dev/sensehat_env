@@ -142,4 +142,4 @@ share.csv
 Trial.csv
 csvFiles/
 .vscode/
-secret_setting.json
+secrets_noupload.json

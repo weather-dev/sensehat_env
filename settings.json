@@ -10,5 +10,8 @@
         "log_filename": "outdoor_tests.log",
         "measurement_delay": 5,
         "output_dir": "./csvFiles"
+    },
+    "Emails":{
+        "log_filename":"emails.log"
     }
 }
