@@ -4,7 +4,7 @@ import json
 import datetime as dt
 import logging
 
-with open("secrets_noupload.json", "r") as secrets_file:
+with open("secret.json", "r") as secrets_file:
     secret_data = json.load(secrets_file)
 
 with open("settings.json", "r") as setting_file:
