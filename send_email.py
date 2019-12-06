@@ -9,7 +9,7 @@ import logging
 
 with open("settings.json", "r") as setting_file:
     setting_data = json.load(setting_file)
-with open("secrets_noupload.json", "r") as secret_file:
+with open("secret.json", "r") as secret_file:
     secret_data = json.load(secret_file)
 
 logging.basicConfig(filename=setting_data["Emails"]["log_filename"], level=logging.DEBUG)
