@@ -142,6 +142,7 @@ share.csv
 Trial.csv
 csvFiles/
 .vscode/
+<<<<<<< HEAD
 secret_setting.json
 generator.py
 secrets_noupload.json
