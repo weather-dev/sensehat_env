@@ -2,15 +2,19 @@ import pandas as pd
 import logging
 import requests
 import json
+import datetime
+import os
 
-with open("secret.json", "r") as secrets_file:
+with open("secrets_noupload.json", "r") as secrets_file:
     secret_data = json.load(secrets_file)
 with open("settings.json", "r") as settings_file:
     settings_data = json.load(settings_file)
 
-logging.basicConfig(filename=settings_data["Averages"]["log_filename"], level=logging.DEBUG)
+logging.basicConfig(
+    filename=settings_data["Averages"]["log_filename"], level=logging.DEBUG)
 
-file_name = r"csvFiles\CSVfile_Gen_2019-12-02.csv"
+file_name = "CSVfile_" + str(datetime.date.today()) + ".csv"
+os.chdir(settings_data["envtoCSV"]["output_dir"])
 
 def data_handle_pd(measure_num=10, file_name=file_name, min_temp=20, max_temp=27):
     df = pd.read_csv(file_name)
