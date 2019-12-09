@@ -18,12 +18,12 @@ def data_handle_pd(measure_num=10, file_name=file_name, min_temp=20, max_temp=27
         measure_num, file_name, min_temp, max_temp))
     if temp_average < min_temp:
         print("It's cold here!")
-        requests.post("https://maker.ifttt.com/trigger/<COMMAND>/with/key/<KEY>",
+        requests.post(secret_data["Calculations"]["Temperature_Low"],
                       params={"value1": temp_average, "value2": "none", "value3": "none"})
         logging.debug("Notification sent")
     elif temp_average > max_temp:
         print("It's too hot here!")
-        requests.post("https://maker.ifttt.com/trigger/<COMMAND>/with/key/<KEY>",
+        requests.post(secret_data["Calculations"]["Temperature_High"],
                       params={"value1": temp_average, "value2": "none", "value3": "none"})
         logging.debug("Notification sent")
     else:
@@ -32,4 +32,4 @@ def data_handle_pd(measure_num=10, file_name=file_name, min_temp=20, max_temp=27
 
 
 print("The average temperature is: {}C.".format(data_handle_pd(
-    file_name=file_name, measure_num=20, min_temp=15, max_temp=20)))
+    file_name=file_name, measure_num=20, min_temp=0, max_temp=10)))
