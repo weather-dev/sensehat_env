@@ -5,7 +5,7 @@ import json
 import datetime
 import os
 
-with open("secrets_noupload.json", "r") as secrets_file:
+with open("secret.json", "r") as secrets_file:
     secret_data = json.load(secrets_file)
 with open("settings.json", "r") as settings_file:
     settings_data = json.load(settings_file)
