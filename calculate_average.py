@@ -3,12 +3,14 @@ import logging
 import requests
 import json
 
-logging.basicConfig(filename="averages.log", level=logging.DEBUG)
-
-file_name = r"csvFiles\CSVfile_Gen_2019-12-02.csv"
-
 with open("secret.json", "r") as secrets_file:
     secret_data = json.load(secrets_file)
+with open("settings.json", "r") as settings_file:
+    settings_data = json.load(settings_file)
+
+logging.basicConfig(filename=settings_data["Averages"]["log_filename"], level=logging.DEBUG)
+
+file_name = r"csvFiles\CSVfile_Gen_2019-12-02.csv"
 
 def data_handle_pd(measure_num=10, file_name=file_name, min_temp=20, max_temp=27):
     df = pd.read_csv(file_name)
@@ -32,4 +34,4 @@ def data_handle_pd(measure_num=10, file_name=file_name, min_temp=20, max_temp=27
 
 
 print("The average temperature is: {}C.".format(data_handle_pd(
-    file_name=file_name, measure_num=20, min_temp=0, max_temp=10)))
+    file_name=file_name, measure_num=settings_data["Averages"]["Number_of_measurements"], min_temp=settings_data["Averages"]["Low_temperature_limit"], max_temp=settings_data["Averages"]["High_temperature_limit"])))

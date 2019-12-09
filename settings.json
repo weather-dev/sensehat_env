@@ -16,5 +16,11 @@
     },
     "Emails":{
         "log_filename":"emails.log"
+    },
+    "Averages":{
+        "log_filename":"averages.log",
+        "Number_of_measurements":20,
+        "Low_temperature_limit":15,
+        "High_temperature_limit":25
     }
 }
