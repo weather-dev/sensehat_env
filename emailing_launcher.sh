@@ -2,6 +2,6 @@
 
 cd /
 cd home/pi/Dev/sensehat_env
-sudo python send_email.py &
-sudo python uploader.py &
+sudo python3 send_email.py &
+sudo python3 uploader.py &
 cd /
