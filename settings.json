@@ -1,24 +1,24 @@
 {
     "envtoCSV": {
-        "log_filename": "envtoCSV_tests.log",
+        "log_filename": "./logs/envtoCSV_tests.log",
         "comment_1": "Measurement delay must be larger than LED delay",
         "measurement_delay": 10,
         "LED delay": 5,
         "output_dir": "./csvFiles"
     },
     "outdoor": {
-        "log_filename": "outdoor_tests.log",
+        "log_filename": "./logs/outdoor_tests.log",
         "measurement_delay": 5,
         "output_dir": "./csvFiles"
     },
     "Uploader":{
-        "log_filename":"uploader.log"
+        "log_filename":"./logs/uploader.log"
     },
     "Emails":{
-        "log_filename":"emails.log"
+        "log_filename":"./logs/emails.log"
     },
     "Averages":{
-        "log_filename":"averages.log",
+        "log_filename":"./logs/averages.log",
         "Number_of_measurements":20,
         "Low_temperature_limit":15,
         "High_temperature_limit":25
