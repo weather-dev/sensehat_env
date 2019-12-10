@@ -19,7 +19,7 @@ os.chdir(settings_data["envtoCSV"]["output_dir"])
 def data_handle_pd(measure_num=10, file_name=file_name, min_temp=20, max_temp=27):
     df = pd.read_csv(file_name)
     calc_df = df.tail(int(measure_num))
-    temp_average = round(calc_df.loc[:, "Temperature"].mean(), 3)
+    temp_average = round(calc_df.loc[:, "Average temp"].mean(), 3)
     logging.debug("Settings: Measurement number: {}, File name analysed: {}, Low temperature limit: {}C, High temperature limit: {}C".format(
         measure_num, file_name, min_temp, max_temp))
     if temp_average < min_temp:
