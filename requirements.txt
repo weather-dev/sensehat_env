@@ -1,4 +1,4 @@
 dropbox==9.4.0
-requests==2.18.4
+requests==2.20.0
 pandas==0.22.0
 sense_hat==2.2.0
