@@ -147,3 +147,5 @@ secret_setting.json
 generator.py
 secrets_noupload.json
 Sensehat_Workspace.code-workspace
+Pipfile
+Pipfile.lock
