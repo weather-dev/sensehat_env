@@ -16,9 +16,9 @@ file_name = "CSVfile_{}.csv".format(file_date)
 
 os.chdir(setting_data["envtoCSV"]["output_dir"])
 
-logging.debug(f"Working directory after swap: {os.getcwd()}")
+logging.debug("Working directory after swap: {}".format(os.getcwd()))
 
-command_run = f"scp {file_name} {server_location}"
+command_run = "scp {} {}".format(file_name, server_location)
 
 os.system(command_run)
-logging.debug(f"Command '{command_run}' run successfully")
+logging.debug("Command '{}' run successfully".format(command_run))
