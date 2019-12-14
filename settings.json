@@ -22,5 +22,8 @@
         "Number_of_measurements":20,
         "Low_temperature_limit":15,
         "High_temperature_limit":25
+    },
+    "scp_send":{
+        "log_filename":"./logs/scp_upload.log"
     }
 }
