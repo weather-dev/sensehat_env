@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import datetime as dt
 
-file_date = "2019-12-15"
+file_date =str( dt.date.today() - dt.timedelta(days = 1) )
 
 file_name = "csvFiles/CSVfile_{}.csv".format(file_date)
 df = pd.read_csv(file_name)
