@@ -4,3 +4,4 @@ sense-hat==2.2.0
 urllib3==1.24.2
 dropbox==9.4.0
 pandas==0.22.0
+matplotlib==3.1.2
