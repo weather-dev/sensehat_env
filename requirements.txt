@@ -1,7 +1,7 @@
 numpy==1.16.3
 requests==2.22.0
 sense-hat==2.2.0
-urllib3==1.24.2
+urllib3==1.26.5
 dropbox==9.4.0
 pandas==0.22.0
 matplotlib==3.1.2
