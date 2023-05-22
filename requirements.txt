@@ -1,5 +1,5 @@
 numpy==1.16.3
-requests==2.22.0
+requests==2.31.0
 sense-hat==2.2.0
 urllib3==1.26.5
 dropbox==9.4.0
